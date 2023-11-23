@@ -1,0 +1,8 @@
+node_modules
+dist
+.svn
+.yarn
+.lock
+.yml
+*.mp4
+*.pdf
