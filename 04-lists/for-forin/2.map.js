@@ -6,27 +6,32 @@ Array.prototype.meuMap = function (callback) {
         const resultado = callback(this[indice], indice)
         novoArrayMapeado.push(resultado)
     }
-
-    return novoArrayMapeado;
+    return novoArrayMapeado
 }
 
+
 async function main() {
-    try {
+
+    try{
+
         const results = await service.obterPessoas(`a`)
-        // const names = []
-        // results.results.forEach(function (item) {
+        // const names = [];
+        // results.results.forEach(function(item) {
         //     names.push(item.name)
-        // })
-        // const names = results.results.map(function (pessoa) {
+        // });
+        // const names = results.results.map(function(pessoa){
         //     return pessoa.name
         // })
         // const names = results.results.map((pessoa) => pessoa.name)
-        const names = results.results.meuMap(function (pessoa, indice) {
-            return `[${indice}]${pessoa.name}`
+        const names = results.results.meuMap(function(pessoa, indice){
+            return `${indice} - ${pessoa.name}`
         })
-        console.log('names', names)
-    } catch (error) {
-        console.error(`DEU RUIM`, error)
+        console.log(names)
+
+    }catch (error){
+        console.error(error)
     }
+
+
 }
 main()

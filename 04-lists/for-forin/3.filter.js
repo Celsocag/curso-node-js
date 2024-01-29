@@ -1,57 +1,63 @@
-const {
-    obterPessoas
-} = require('./service')
+const {obterPessoas} = require('./service')
 
 /*
+Desestruturação exemplo: 
 
- const item = {
-     nome: 'Erick',
-     idade: 12,
 
- }
+const item = {
+    nome: 'Erick',
+    idade: 12,
+}
+const {nome} =item
+console.log(nome)
 
- const { nome , idade } = item
- console.log(nome, idade)
+const {nome, idade} =item
+console.log(nome, idade)
 */
+
 Array.prototype.meuFilter = function (callback) {
     const lista = []
-    for (index in this) {
-        const item = this[index]
+    for(item in this) {
         const result = callback(item, index, this)
-        // 0, "", null, undefined === false
-        if (!result) continue;
-        lista.push(item)
+        if(!result) continue;
+        lista.push(item);
     }
-    return lista;
+    return lista
 }
 
 async function main() {
-    try {
+    try{
+
         const {
             results
         } = await obterPessoas(`a`)
 
-        // const familiaLars = results.filter(function (item) {
-        //     // por padrão precisa retornar um booleano
-        //     // para informar se deve manter ou remover da lista
-        //     // false > remove da lista
-        //     // true > mantem
-        //     // não encontrou = -1
-        //     // encontrou = posicaoNoArray
+        // const familiaLars = results.filter(function(item){
+            
+        //     //por padrao precisa retornar um booleano
+        //     //para informar se deve manter ou remover da lista
+        //     //false > remove
+        //     //true > mantem
+        //     //nao encontrou = -1
+        //     //encontrou = indexNoArray
+
         //     const result = item.name.toLowerCase().indexOf(`lars`) !== -1
         //     return result
         // })
-        const familiaLars = results.meuFilter((item, index, lista) => {
-            console.log(`index: ${index}`, lista.length)
-            return item.name.toLowerCase().indexOf('lars') !== -1
-        })
 
+        const familiaLars = results.meuFilter(item => {
+            console.log(`index: ${index}`, lista.length)
+            return    item.name.toLowercase().indexOf('lars') !== -1
+            
+        }
+        )
         const names = familiaLars.map((pessoa) => pessoa.name)
         console.log(names)
 
-    } catch (error) {
-        console.error('DEU RUIM', error)
-    }
 
+
+    }catch(error){
+        console.error(error)
+    }
 }
 main()
